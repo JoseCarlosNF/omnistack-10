@@ -6,7 +6,8 @@ const app = express();
 // ! Offline DB
 mongoose.connect("mongodb://localhost:27017/omnistack-10", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true
 });
 
 // ? Online DB
