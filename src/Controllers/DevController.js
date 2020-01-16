@@ -3,14 +3,14 @@ const Dev = require("../models/Dev");
 const parseStringAsArray = require("../utils/parseStringAsArray");
 
 module.exports = {
-  // ! Leitura
+  // ! Listar cadastros
   async index(request, response) {
     const devs = await Dev.find();
 
     return response.json(devs);
   },
 
-  // ! Escrita
+  // ! Novo cadastro
   async store(request, response) {
     // Pegando do Corpo da Requisição
     const { github_username, techs, latitude, longitude } = request.body;
@@ -43,5 +43,21 @@ module.exports = {
     }
 
     return response.json(dev);
+  },
+
+  // ! Atualizar cadastro
+  async update(request, response) {
+    const dev = await Dev.findOneAndUpdate(
+      request.params.username,
+      request.body,
+      { new: true }
+    );
+    return response.json(dev);
+  },
+
+  // ! Deletar cadastro
+  async destroy(request, response) {
+    await Dev.findOneAndDelete(request.params.username);
+    return resizeBy.send();
   }
 };
